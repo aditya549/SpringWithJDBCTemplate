@@ -79,13 +79,11 @@ public class EmpDAOImpl implements EmpDAO1 {
 					
 				}
 				return ls;
-			}
-		
+			}			
 		};
 		List<Employee> ls=jdbctemplate.query(query1, rse);
 		System.out.println(ls);
 		return ls;
-		
 	}
 	public Employee fetchsinglerecord(Employee e) {
 		String query="select * from springjdbc where username=?";
@@ -94,12 +92,20 @@ public class EmpDAOImpl implements EmpDAO1 {
 			@Override
 			public Employee extractData(ResultSet rs) throws SQLException, DataAccessException {
 				Employee emp=new Employee();
+				while(rs.next()) {
+					emp.setId(rs.getInt("id"));
+					emp.setUsername(rs.getString("username"));
+					emp.setPassword(rs.getString("password"));
+				}
+				return emp;
+				
+				/*Employee emp=new Employee();
 				System.out.println("testing");
 				System.out.println(rs.next());
 				System.out.println(rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3));
 				String name=rs.getString(1);
 				emp.setUsername(name);
-				return emp;
+				return emp;*/
 			}
 			
 		};
